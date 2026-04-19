@@ -26,15 +26,14 @@ export class ProductoComponente implements OnInit {
     categoriaId: 0
   };
 
+
+  modoEdicion = false;
+  idEditando: number | null = null;
+
   constructor (
     private productoDb : ProductoDbservice,
     private categoriaDb : CategoriaDbservice  
   ){}
-
-  //async ngOnInit() {
-  //  await this.cargarCategorias();
-  //  await this.cargarProductos();
-  //}
 
   async ngOnInit() {
     const lista = await this.categoriaDb.todasCategorias();
@@ -52,6 +51,8 @@ export class ProductoComponente implements OnInit {
     }
   
     await this.cargarCategorias();
+
+    await this.cargarProductos();
   }
 
   async cargarCategorias(){
@@ -62,6 +63,7 @@ export class ProductoComponente implements OnInit {
     this.productos = await this.productoDb.todosProductos();
   }
 
+  /*
   async guardar(){
     if(this.nuevoProducto.categoriaId === 0){
       alert('Seleccione una categoria por favor.');
@@ -77,6 +79,67 @@ export class ProductoComponente implements OnInit {
       cantidad:0,
       categoriaId: 0
     };
+  }*/
+/*
+  async guardar(){
+
+  const categoria = Number(this.nuevoProducto.categoriaId);
+
+  if(categoria === 0){
+    //alert('Seleccione una categoria por favor.');
+    return;
+  }
+
+  await this.productoDb.agregarProducto({
+    ...this.nuevoProducto,
+    categoriaId: categoria
+  });
+
+  await this.cargarProductos();
+
+  // RESET CORRECTO (sin romper ngModel)
+  this.nuevoProducto.nombre = '';
+  this.nuevoProducto.descripcion = '';
+  this.nuevoProducto.precio = 0;
+  this.nuevoProducto.cantidad = 0;
+  this.nuevoProducto.categoriaId = 0;
+}*/
+
+async guardar() {
+
+    const categoria = Number(this.nuevoProducto.categoriaId);
+
+    if (categoria === 0) {
+      return;
+    }
+
+    if (this.modoEdicion && this.idEditando !== null) {
+
+      await this.productoDb.actualizarProducto({
+        id: this.idEditando,
+        ...this.nuevoProducto,
+        categoriaId: categoria
+      });
+
+      this.modoEdicion = false;
+      this.idEditando = null;
+
+    } else {
+      // CREAR
+      await this.productoDb.agregarProducto({
+        ...this.nuevoProducto,
+        categoriaId: categoria
+      });
+    }
+
+    await this.cargarProductos();
+
+    // RESET FORMULARIO SIN ROMPER ngModel
+    this.nuevoProducto.nombre = '';
+    this.nuevoProducto.descripcion = '';
+    this.nuevoProducto.precio = 0;
+    this.nuevoProducto.cantidad = 0;
+    this.nuevoProducto.categoriaId = 0;
   }
 
   async eliminar (id: number){
@@ -87,6 +150,18 @@ export class ProductoComponente implements OnInit {
   obtenerCategoria(id: number):string {
     const category = this.categorias.find(c=> c.id === id);
     return category ? category?.tipo: 'Sin categoria';
+  }
+/*
+  editar(producto: Producto){
+    this.nuevoProducto = { ...producto };
+  }*/
+
+  editar(producto: Producto){
+
+    this.nuevoProducto = { ...producto };
+
+    this.modoEdicion = true;
+    this.idEditando = producto.id!;
   }
 }
 

@@ -26,7 +26,7 @@ export class GrupoComponente implements OnInit{
   async cargarCategorias(){
     this.categorias = await this.categoriaDb.todasCategorias();
   }
-
+/*
   async guardar(){
     if(!this.nuevaCategoria.tipo){
       alert('El tipo de categoria es obligatorio.');
@@ -41,7 +41,22 @@ export class GrupoComponente implements OnInit{
       descripcion: ""
     };
  
+  }*/
+
+  async guardar(){
+
+  if(!this.nuevaCategoria.tipo?.trim()){
+    //alert('El tipo de categoria es obligatorio.');
+    return;
   }
+
+  await this.categoriaDb.agregarCategoria(this.nuevaCategoria);
+  await this.cargarCategorias();
+
+  // RESET CORRECTO (sin romper ngModel)
+  this.nuevaCategoria.tipo = "";
+  this.nuevaCategoria.descripcion = "";
+}
 
   async eliminar (id: number) {
     await this.categoriaDb.eliminarCategoria(id);

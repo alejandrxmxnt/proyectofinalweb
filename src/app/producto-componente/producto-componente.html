@@ -55,7 +55,7 @@
 <div class="container">
 
   <form>
-
+    <h2>CREACION DE NUEVO PRODUCTO</h2>
     <div class="mb-3">
       <label class="form-label">Nombre del producto: </label>
       <input [(ngModel)]="nuevoProducto.nombre"
@@ -99,12 +99,16 @@
         {{c.tipo}}
       </option>
     </select>
-
+<!--
     <button (click)="guardar()"
             type="button"
             class="btn btn-primary mb-3">
       Guardar
     </button>
+-->
+    <button (click)="guardar()" class="btn btn-primary mb-3">
+  {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+</button>
 
   </form>
 
@@ -112,10 +116,12 @@
 
   <ul class="list-group">
     <li *ngFor="let p of productos" class="list-group-item">
-      <strong>{{p.nombre}}</strong> - {{p.precio}} Bs
+      <strong>{{p.nombre}}</strong> - {{p.precio}} Bs - Disponible: {{p.cantidad}}
       <br>
       {{ obtenerCategoria(p.categoriaId) }}
 
+      
+      <button class="btn btn-edit" (click)="editar(p)">Editar</button>
       <button class="btn btn-danger btn-sm float-end"
               (click)="eliminar(p.id!)">
         Eliminar
@@ -124,3 +130,7 @@
   </ul>
 
 </div>
+
+
+
+
