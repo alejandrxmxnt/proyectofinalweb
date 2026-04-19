@@ -31,9 +31,27 @@ export class ProductoComponente implements OnInit {
     private categoriaDb : CategoriaDbservice  
   ){}
 
+  //async ngOnInit() {
+  //  await this.cargarCategorias();
+  //  await this.cargarProductos();
+  //}
+
   async ngOnInit() {
+    const lista = await this.categoriaDb.todasCategorias();
+    
+    if (lista.length === 0) {
+      await this.categoriaDb.agregarCategoria({
+        tipo: 'Oral',
+        descripcion: 'Vía oral'
+      });
+    
+      await this.categoriaDb.agregarCategoria({
+        tipo: 'Rectal',
+        descripcion: 'Vía rectal'
+      });
+    }
+  
     await this.cargarCategorias();
-    await this.cargarProductos();
   }
 
   async cargarCategorias(){

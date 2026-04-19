@@ -1,1 +1,52 @@
-<p>grupo-componente works!</p>
+<!--
+<div class="container">
+    
+
+
+    <form>
+    <div class="mb-3">
+        <label for="" class="form-label">Nombre de la Categoria: </label>
+        <input [(ngModel)]="nuevaCategoria.tipo" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Este parametro es obligatorio</div>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Descripcion del producto: </label>
+        <textarea [(ngModel)]="nuevaCategoria.descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <button (click)="guardar()" class="btn btn-primary mb-3">Guardar</button>
+    </form>
+</div>
+-->
+
+
+
+<div class="container">
+
+  <form>
+
+    <div class="mb-3">
+      <label class="form-label">Nombre de la Categoria: </label>
+      <input [(ngModel)]="nuevaCategoria.tipo"
+             name="tipo"
+             type="text"
+             class="form-control">
+      <div class="form-text">Este parametro es obligatorio</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descripcion del producto: </label>
+      <textarea [(ngModel)]="nuevaCategoria.descripcion"
+                name="descripcion"
+                class="form-control"
+                rows="3"></textarea>
+    </div>
+
+    <button (click)="guardar()"
+            type="button"
+            class="btn btn-primary mb-3">
+      Guardar
+    </button>
+
+  </form>
+
+</div>

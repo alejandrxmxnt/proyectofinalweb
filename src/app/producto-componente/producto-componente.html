@@ -1,4 +1,126 @@
+<!--
 <div class="container">
-    <p>producto-componente works!</p>
+
+
+
+    <form>
+    <div class="mb-3">
+        <label for="" class="form-label">Nombre del producto: </label>
+        <input [(ngModel)]="nuevoProducto.nombre" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Este parametro es obligatorio</div>
+    </div>
+    <div class="mb-3">
+    <label for="" class="form-label">Descripcion del producto: </label>
+    <textarea [(ngModel)]="nuevoProducto.descripcion" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Precio: </label>
+        <input [(ngModel)]="nuevoProducto.precio" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">El precio es obligatorio.</div>
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Cantidad disponible: </label>
+        <input [(ngModel)]="nuevoProducto.cantidad" type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <div id="emailHelp" class="form-text">Este parametro es obligatorio</div>
+    </div>
+    <select [(ngModel)]="nuevoProducto.categoriaId" class="form-select mb-2">
+        <option [value]="0">Seleccione categoría</option>
+        <option *ngFor="let c of categorias" [value]="c.id">
+        {{c.tipo}}
+        </option>
+    </select>
+    <button (click)="guardar()" class="btn btn-primary mb-3">Guardar</button>
+    </form>
+
+
+
+
+  <h3>Lista</h3>
+
+  <ul class="list-group">
+    <li *ngFor="let p of productos" class="list-group-item">
+      <strong>{{p.nombre}}</strong> - {{p.precio}} Bs
+      <br>
+      {{ obtenerCategoria(p.categoriaId) }}
+
+      <button class="btn btn-danger btn-sm float-end"
+              (click)="eliminar(p.id!)">
+        Eliminar
+      </button>
+    </li>
+  </ul>
+</div>
+-->
+
+<div class="container">
+
+  <form>
+
+    <div class="mb-3">
+      <label class="form-label">Nombre del producto: </label>
+      <input [(ngModel)]="nuevoProducto.nombre"
+             name="nombre"
+             type="text"
+             class="form-control">
+      <div class="form-text">Este parametro es obligatorio</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Descripcion del producto: </label>
+      <textarea [(ngModel)]="nuevoProducto.descripcion"
+                name="descripcion"
+                class="form-control"
+                rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Precio: </label>
+      <input [(ngModel)]="nuevoProducto.precio"
+             name="precio"
+             type="number"
+             class="form-control">
+      <div class="form-text">El precio es obligatorio.</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Cantidad disponible: </label>
+      <input [(ngModel)]="nuevoProducto.cantidad"
+             name="cantidad"
+             type="number"
+             class="form-control">
+      <div class="form-text">Este parametro es obligatorio</div>
+    </div>
+
+    <select [(ngModel)]="nuevoProducto.categoriaId"
+            name="categoriaId"
+            class="form-select mb-2">
+      <option [value]="0">Seleccione categoría</option>
+      <option *ngFor="let c of categorias" [value]="c.id">
+        {{c.tipo}}
+      </option>
+    </select>
+
+    <button (click)="guardar()"
+            type="button"
+            class="btn btn-primary mb-3">
+      Guardar
+    </button>
+
+  </form>
+
+  <h3>Lista</h3>
+
+  <ul class="list-group">
+    <li *ngFor="let p of productos" class="list-group-item">
+      <strong>{{p.nombre}}</strong> - {{p.precio}} Bs
+      <br>
+      {{ obtenerCategoria(p.categoriaId) }}
+
+      <button class="btn btn-danger btn-sm float-end"
+              (click)="eliminar(p.id!)">
+        Eliminar
+      </button>
+    </li>
+  </ul>
 
 </div>
